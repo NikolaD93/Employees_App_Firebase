@@ -37,7 +37,7 @@ select {
   border: 1px solid #ccc;
 }
 
-.btn {
+.btn-save {
   width: 100%;
   background-color: #4caf60;
   color: white;
@@ -53,7 +53,75 @@ select {
   font-size: 1rem;
 }
 
+.btn-save:hover,
+.btn-save:focus {
+  opacity: 0.75;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 0.9em;
+  max-width: 1100px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  overflow: scroll;
+}
+
+.styled-table thead tr {
+  background-color: #4284f5;
+  color: #fff;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #4284f5;
+}
+
+.btn {
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.4s ease-in-out;
+}
+
 .btn:hover,
 .btn:focus {
   opacity: 0.75;
+}
+
+.btn-edit {
+  background: goldenrod;
+}
+
+.btn-delete {
+  background: firebrick;
+}
+
+.btn-view {
+  background-color: #e7e7e7;
+  color: black;
 }

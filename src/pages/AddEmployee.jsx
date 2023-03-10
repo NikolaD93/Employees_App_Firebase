@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import EmployeesContext from "../contexts/EmployeesContext";
 import "./AddEmployee.css";
-import { db } from "../config/firebase";
-import { getDocs } from "firebase/firestore";
+import { addDoc } from "firebase/firestore";
 
 const initialState = {
   name: "",
@@ -14,7 +14,8 @@ const initialState = {
 
 const AddEmployee = () => {
   const [state, setState] = useState(initialState);
-  const [data, setData] = useState({});
+  const { employeesCollectionRef, employees, setEmployees } =
+    useContext(EmployeesContext);
 
   const { name, email, phone, dob, salary } = state;
 
@@ -25,18 +26,15 @@ const AddEmployee = () => {
     setState({ ...state, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name) {
-      alert("Please enter a name!");
-    } else {
-      fireDb.child("employee").push(state, (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-      setTimeout(() => navigate("/"), 500);
+    try {
+      await addDoc(employeesCollectionRef, state);
+    } catch (error) {
+      console.error(error);
     }
+
+    setTimeout(() => navigate("/"), 500);
   };
 
   return (
@@ -94,7 +92,7 @@ const AddEmployee = () => {
             autoComplete="off"
             onChange={handleInputChange}
           />
-          <button className="btn" type="submit">
+          <button className="btn-save" type="submit">
             Save
           </button>
         </form>
