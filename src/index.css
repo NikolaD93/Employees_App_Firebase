@@ -21,7 +21,7 @@ h6 {
   color: #4284f5;
 }
 
-form {
+.form-wrapper {
   margin: auto;
   padding: 15px;
   max-width: 400px;
@@ -38,7 +38,7 @@ select {
 }
 
 .btn-save {
-  width: 100%;
+  width: 50%;
   background-color: #4caf60;
   color: white;
   margin-top: 8px;
@@ -60,15 +60,17 @@ select {
 
 .table-wrapper {
   overflow-x: auto;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .styled-table {
   border-collapse: collapse;
   margin: auto;
   font-size: 0.9em;
-  max-width: 1100px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  overflow: scroll;
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .styled-table thead tr {
@@ -115,6 +117,10 @@ select {
 
 .btn-edit {
   background: goldenrod;
+}
+
+.btn-add{
+  background: palevioletred;
 }
 
 .btn-delete {

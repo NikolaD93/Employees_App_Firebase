@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeesContext from "../contexts/EmployeesContext";
 import "./AddEmployee.css";
-import { addDoc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 
 const initialState = {
   name: "",
@@ -12,7 +12,7 @@ const initialState = {
   salary: "",
 };
 
-const AddEmployee = () => {
+const EditEmployee = () => {
   const [state, setState] = useState(initialState);
   const { employeesCollectionRef, employees, setEmployees } =
     useContext(EmployeesContext);
@@ -20,17 +20,35 @@ const AddEmployee = () => {
   const { name, email, phone, dob, salary } = state;
 
   const navigate = useNavigate();
+  const params = useParams();
+
+  let employee = employees.filter((item) => {
+    if (item.id == params.id) {
+      return item;
+    }
+  })[0];
+
+  useEffect(() => {
+    setState(employee);
+  }, [employee]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(employeesCollectionRef, state);
+      await updateDoc(doc(employeesCollectionRef, params.id), state);
+      setEmployees((prevState) => {
+        const updatedEmployees = [...prevState];
+        const index = updatedEmployees.findIndex(
+          (employee) => employee.id === params.id
+        );
+        updatedEmployees[index] = state;
+        return updatedEmployees;
+      });
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +58,7 @@ const AddEmployee = () => {
 
   return (
     <>
-      <h2>Add an employee</h2>
+      <h2>Edit employee</h2>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>
@@ -91,8 +109,20 @@ const AddEmployee = () => {
             autoComplete="off"
             onChange={handleInputChange}
           />
-          <button className="btn-save" type="submit">
+          <button
+            style={{ background: "dodgerblue" }}
+            className="btn btn-save"
+            type="submit"
+          >
             Save
+          </button>
+
+          <button
+            onClick={() => navigate("/")}
+            style={{ background: "firebrick" }}
+            className="btn btn-save"
+          >
+            Cancel
           </button>
         </form>
       </div>
@@ -100,4 +130,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default EditEmployee;

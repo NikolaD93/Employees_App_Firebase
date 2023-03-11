@@ -8,14 +8,17 @@ const Employees = () => {
   const { employees, setEmployees } = useContext(EmployeesContext);
 
   const deleteEmployee = async (id) => {
-    const employeeDoc = doc(db, "employees", id);
-    await deleteDoc(employeeDoc);
+    if (window.confirm("Are you sure you want to delete this employee?")) {
+      const employeeDoc = doc(db, "employees", id);
+      await deleteDoc(employeeDoc);
+    }
   };
 
   return (
     <>
       <h1>Employees</h1>
       <div className="table-wrapper">
+        <Link className="btn btn-add" to={"/addemployee"}>Add New Employee</Link>
         <table className="styled-table">
           <thead>
             <tr>
@@ -39,7 +42,7 @@ const Employees = () => {
                   <td>{employee.dob}</td>
                   <td>${employee.salary}</td>
                   <td>
-                    <Link>
+                    <Link to={`editemployee/${employee.id}`}>
                       <button className="btn btn-edit">Edit</button>
                     </Link>
                     <button
@@ -48,9 +51,6 @@ const Employees = () => {
                     >
                       Delete
                     </button>
-                    <Link to={`/viewemployee/${employee.id}`}>
-                      <button className="btn btn-view">View</button>
-                    </Link>
                   </td>
                 </tr>
               );

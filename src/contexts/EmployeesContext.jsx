@@ -24,7 +24,7 @@ export const EmployeesProvider = ({ children }) => {
 
   useEffect(() => {
     getEmployees();
-  }, [employees]);
+  }, []);
 
 
   return (

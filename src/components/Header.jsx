@@ -27,12 +27,12 @@ const Header = () => {
               Employees
             </li>
           </Link>
-          <Link style={{ textDecoration: "none" }} to="/addemployee">
+          <Link style={{ textDecoration: "none" }} to="/tasks">
             <li
-              className={`${activeTab === "AddEmployee" ? "active" : ""}`}
-              onClick={() => setActiveTab("AddEmployee")}
+              className={`${activeTab === "Tasks" ? "active" : ""}`}
+              onClick={() => setActiveTab("Tasks")}
             >
-              Add employee
+              Tasks
             </li>
           </Link>
         </ul>
