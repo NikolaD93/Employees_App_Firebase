@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeesContext from "../contexts/EmployeesContext";
-import "./AddEmployee.css";
 import { updateDoc, doc } from "firebase/firestore";
 
 const initialState = {
@@ -109,21 +108,23 @@ const EditEmployee = () => {
             autoComplete="off"
             onChange={handleInputChange}
           />
-          <button
-            style={{ background: "dodgerblue" }}
-            className="btn btn-save"
-            type="submit"
-          >
-            Save
-          </button>
+          <div style={{display:"flex"}}>
+            <button
+              style={{ background: "dodgerblue" }}
+              className="btn btn-save"
+              type="submit"
+            >
+              Save
+            </button>
 
-          <button
-            onClick={() => navigate("/")}
-            style={{ background: "firebrick" }}
-            className="btn btn-save"
-          >
-            Cancel
-          </button>
+            <button
+              onClick={() => navigate("/")}
+              style={{ background: "firebrick" }}
+              className="btn btn-save"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </>

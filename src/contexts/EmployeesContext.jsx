@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { db } from "../config/firebase";
-import { getDocs, collection } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 
 const EmployeesContext = createContext();
 
@@ -9,23 +9,17 @@ export const EmployeesProvider = ({ children }) => {
 
   const employeesCollectionRef = collection(db, "employees");
 
-  const getEmployees = async () => {
-    try {
-      const data = await getDocs(employeesCollectionRef);
-      const filteredData = data.docs.map((doc) => ({
+  useEffect(() => {
+    const unsubscribe = onSnapshot(employeesCollectionRef, (snapshot) => {
+      const filteredData = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
       setEmployees(filteredData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    });
 
-  useEffect(() => {
-    getEmployees();
+    return () => unsubscribe();
   }, []);
-
 
   return (
     <EmployeesContext.Provider

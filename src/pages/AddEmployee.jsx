@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeesContext from "../contexts/EmployeesContext";
-import "./AddEmployee.css";
 import { addDoc } from "firebase/firestore";
 
 const initialState = {
@@ -53,7 +52,7 @@ const AddEmployee = () => {
             autoComplete="off"
             onChange={handleInputChange}
           />
-          <label htmlFor="name">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -91,7 +90,7 @@ const AddEmployee = () => {
             autoComplete="off"
             onChange={handleInputChange}
           />
-          <button className="btn-save" type="submit">
+          <button style={{width: "100%"}} className="btn-save" type="submit">
             Save
           </button>
         </form>

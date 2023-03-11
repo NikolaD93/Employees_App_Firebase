@@ -9,8 +9,8 @@ const Header = () => {
   useEffect(() => {
     if (location.pathname === "/") {
       setActiveTab("Employees");
-    } else if (location.pathname === "/addemployee") {
-      setActiveTab("AddEmployee");
+    } else if (location.pathname === "/tasks") {
+      setActiveTab("Tasks");
     }
   }, [location]);
 

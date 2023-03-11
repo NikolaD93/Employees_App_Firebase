@@ -12,7 +12,10 @@ const Employees = () => {
       const employeeDoc = doc(db, "employees", id);
       await deleteDoc(employeeDoc);
     }
+    // window.location.reload(true);
   };
+
+ 
 
   return (
     <>
