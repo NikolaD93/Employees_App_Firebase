@@ -1,27 +1,37 @@
 import React, { useState, useEffect, useContext } from "react";
 import EmployeesContext from "../contexts/EmployeesContext";
 import { Link } from "react-router-dom";
-import { db } from "../config/firebase";
+import { db } from "../db/Firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 
 const Employees = () => {
   const { employees, setEmployees } = useContext(EmployeesContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [employeesPerPage] = useState(5);
 
+  const indexOfLastEmployee = currentPage * employeesPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+  const currentEmployees = employees.slice(
+    indexOfFirstEmployee,
+    indexOfLastEmployee
+  );
+  
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  
   const deleteEmployee = async (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       const employeeDoc = doc(db, "employees", id);
       await deleteDoc(employeeDoc);
     }
-    // window.location.reload(true);
   };
-
- 
 
   return (
     <>
       <h1>Employees</h1>
       <div className="table-wrapper">
-        <Link className="btn btn-add" to={"/addemployee"}>Add New Employee</Link>
+        <Link className="btn btn-add" to={"/addemployee"}>
+          Add New Employee
+        </Link>
         <table className="styled-table">
           <thead>
             <tr>
@@ -35,10 +45,12 @@ const Employees = () => {
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee, index) => {
+            {currentEmployees.map((employee, index) => {
               return (
                 <tr key={employee.id}>
-                  <th scope="row">{index + 1}</th>
+                  <th scope="row">
+                    {index + 1 + employeesPerPage * (currentPage - 1)}
+                  </th>
                   <td>{employee.name}</td>
                   <td>{employee.email}</td>
                   <td>{employee.phone}</td>
@@ -60,6 +72,31 @@ const Employees = () => {
             })}
           </tbody>
         </table>
+        <div className="pagination">
+          <ul>
+            {employeesPerPage < employees.length &&
+              Array(Math.ceil(employees.length / employeesPerPage))
+                .fill()
+                .map((_, index) => (
+                  <li
+                    key={index}
+                    className={
+                      currentPage === index + 1
+                        ? "active page-item"
+                        : "page-item"
+                    }
+                  >
+                    <a
+                      href="#"
+                      onClick={() => paginate(index + 1)}
+                      className="page-link"
+                    >
+                      {index + 1}
+                    </a>
+                  </li>
+                ))}
+          </ul>
+        </div>
       </div>
     </>
   );

@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import TasksContext from "../contexts/TasksContext";
 import { Link } from "react-router-dom";
-import { db } from "../config/firebase";
+import { db } from "../db/Firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 
 const Tasks = () => {
   const { tasks, setTasks } = useContext(TasksContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [tasksPerPage] = useState(5);
+
+  const indexOfLastTask = currentPage * tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+  const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const deleteTask = async (id) => {
     if (window.confirm("Are you sure you want to delete this task?")) {
@@ -34,10 +42,12 @@ const Tasks = () => {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task, index) => {
+            {currentTasks.map((task, index) => {
               return (
                 <tr key={task.id}>
-                  <th scope="row">{index + 1}</th>
+                  <th scope="row">
+                    {index + 1 + tasksPerPage * (currentPage - 1)}
+                  </th>
                   <td>{task.title}</td>
                   <td>{task.description}</td>
                   <td>{task.assignee}</td>
@@ -59,6 +69,31 @@ const Tasks = () => {
             })}
           </tbody>
         </table>
+        <div className="pagination">
+          <ul>
+            {tasksPerPage < tasks.length &&
+              Array(Math.ceil(tasks.length / tasksPerPage))
+                .fill()
+                .map((_, index) => (
+                  <li
+                    key={index}
+                    className={
+                      currentPage === index + 1
+                        ? "active page-item"
+                        : "page-item"
+                    }
+                  >
+                    <a
+                      href="#"
+                      onClick={() => paginate(index + 1)}
+                      className="page-link"
+                    >
+                      {index + 1}
+                    </a>
+                  </li>
+                ))}
+          </ul>
+        </div>
       </div>
     </>
   );

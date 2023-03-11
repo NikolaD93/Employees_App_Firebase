@@ -104,7 +104,7 @@ const EditTask = () => {
           /> */}
           <select name="status" id="status" onChange={handleInputChange}>
             <option value={status}>Completed</option>
-            <option value={status}>Todo</option>
+            {/* <option value={status}>Todo</option> */}
           </select>
           <div style={{ display: "flex" }}>
             <button

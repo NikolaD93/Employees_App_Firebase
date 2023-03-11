@@ -19,9 +19,21 @@ const AddTask = () => {
 
   const navigate = useNavigate();
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setState({ ...state, [name]: value });
+  // };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setState({ ...state, [name]: value });
+
+    if (name === "status") {
+      const selectedIndex = e.target.selectedIndex;
+      const selectedStatus = e.target.options[selectedIndex].value;
+      setState({ ...state, [name]: selectedStatus });
+    } else {
+      setState({ ...state, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -79,21 +91,11 @@ const AddTask = () => {
             onChange={handleInputChange}
           />
           <label htmlFor="status">Status</label>
-          {/* <select
-            id="status"
-            name="status"
-            value={status}
-            onChange={handleInputChange}
-          /> */}
-          <select
-            name="status"
-            id="status"
-            onChange={handleInputChange}
-          >
-            <option value={status}>Completed</option>
-            <option value={status}>Todo</option>
+          <select name="status" id="status" onChange={handleInputChange}>
+            <option value="completed">Completed</option>
+            <option value="todo">Todo</option>
           </select>
-          <button style={{width: "100%"}} className="btn-save" type="submit">
+          <button style={{ width: "100%" }} className="btn-save" type="submit">
             Save
           </button>
         </form>
@@ -103,3 +105,4 @@ const AddTask = () => {
 };
 
 export default AddTask;
+
