@@ -9,15 +9,15 @@ const initialState = {
   email: "",
   phone: "",
   dob: "",
-  salary: "",
-  tasks: []
+  salary: null,
 };
 
 const AddEmployee = () => {
   const [state, setState] = useState(initialState);
   const { employeesCollectionRef } = useContext(EmployeesContext);
+  const [showNotification, setShowNotification] = useState(false);
 
-  const { name, email, phone, dob, salary, tasks } = state;
+  const { name, email, phone, dob, salary } = state;
 
   const navigate = useNavigate();
 
@@ -30,11 +30,12 @@ const AddEmployee = () => {
     e.preventDefault();
     try {
       await addDoc(employeesCollectionRef, state);
+      setShowNotification(true);
     } catch (error) {
       console.error(error);
     }
 
-    setTimeout(() => navigate("/"), 500);
+    setTimeout(() => navigate("/"), 2000);
   };
 
   return (
@@ -96,6 +97,12 @@ const AddEmployee = () => {
           </Button>
         </form>
       </div>
+      {showNotification && (
+        <div className="notification">
+          <p>New employee added!</p>
+          <Button onClick={() => setShowNotification(false)}>x</Button>
+        </div>
+      )}
     </>
   );
 };

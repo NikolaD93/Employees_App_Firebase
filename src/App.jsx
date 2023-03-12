@@ -7,6 +7,7 @@ import {
   Tasks,
   AddTask,
   EditTask,
+  TopEmployees,
 } from "./pages";
 import { Header, Footer } from "./components";
 import { EmployeesProvider, TasksProvider } from "./contexts";
@@ -23,8 +24,9 @@ const App = () => {
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/addtask" element={<AddTask />} />
           <Route path="/:id" element={<EditTask />} />
+          <Route path="/topemployees" element={<TopEmployees />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </TasksProvider>
     </EmployeesProvider>
   );

@@ -17,6 +17,7 @@ const EditTask = () => {
   const [state, setState] = useState(initialState);
   const { tasksCollectionRef, tasks, setTasks } = useContext(TasksContext);
   const { employees } = useContext(EmployeesContext);
+  const [showNotification, setShowNotification] = useState(false);
 
   const { title, description, assignee, dueDate, status } = state;
 
@@ -46,13 +47,14 @@ const EditTask = () => {
         const updatedTasks = [...prevState];
         const index = updatedTasks.findIndex((task) => task.id === params.id);
         updatedTasks[index] = state;
+        setShowNotification(true);
         return updatedTasks;
       });
     } catch (error) {
       console.error(error);
     }
 
-    setTimeout(() => navigate("/tasks"), 500);
+    setTimeout(() => navigate("/tasks"), 2000);
   };
 
   return (
@@ -85,12 +87,13 @@ const EditTask = () => {
             id="assignee"
             onChange={handleInputChange}
             required
+            defaultValue=""
           >
-            <option selected={true} disabled>
+            <option value="" disabled>
               Please select...
             </option>
             {employees.map((employee) => (
-              <option key={employee.id} value={employee.name}>
+              <option key={employee.id} value={employee.id}>
                 {employee.name}
               </option>
             ))}
@@ -108,13 +111,15 @@ const EditTask = () => {
             name="status"
             id="status"
             required
+            defaultValue=""
             onChange={handleInputChange}
           >
-            <option selected={true} disabled>
+            <option value="" disabled>
               Please select...
             </option>
             <option value="todo">Todo</option>
             <option value="completed">Completed</option>
+            <option value="inProgress">In Progress</option>
           </select>
           <div style={{ display: "flex" }}>
             <Button
@@ -135,6 +140,12 @@ const EditTask = () => {
           </div>
         </form>
       </div>
+      {showNotification && ( 
+        <div className="notification">
+          <p>Edited successfully!</p>
+          <Button onClick={() => setShowNotification(false)}>x</Button>
+        </div>
+      )}
     </>
   );
 };

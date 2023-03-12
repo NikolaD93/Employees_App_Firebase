@@ -19,6 +19,7 @@ const AddTask = () => {
   const { employees } = useContext(EmployeesContext);
 
   const { title, description, assignee, dueDate, status } = state;
+  const [showNotification, setShowNotification] = useState(false);
 
   const navigate = useNavigate();
 
@@ -31,11 +32,12 @@ const AddTask = () => {
     e.preventDefault();
     try {
       await addDoc(tasksCollectionRef, state);
+      setShowNotification(true);
     } catch (error) {
       console.error(error);
     }
 
-    setTimeout(() => navigate("/tasks"), 500);
+    setTimeout(() => navigate("/tasks"), 2000);
   };
 
   return (
@@ -68,12 +70,13 @@ const AddTask = () => {
             id="assignee"
             onChange={handleInputChange}
             required
+            defaultValue=""
           >
-            <option selected={true} disabled>
+            <option value="" disabled>
               Please select...
             </option>
             {employees.map((employee) => (
-              <option key={employee.id} value={employee.name}>
+              <option key={employee.id} value={employee.id}>
                 {employee.name}
               </option>
             ))}
@@ -91,19 +94,27 @@ const AddTask = () => {
             name="status"
             id="status"
             required
+            defaultValue=""
             onChange={handleInputChange}
           >
-            <option selected={true} disabled>
+            <option value="" disabled>
               Please select...
             </option>
             <option value="todo">Todo</option>
             <option value="completed">Completed</option>
+            <option value="inProgress">In Progress</option>
           </select>
           <Button style={{ width: "100%" }} className="btn-save" type="submit">
             Save
           </Button>
         </form>
       </div>
+      {showNotification && ( 
+        <div className="notification">
+          <p>New task added!</p>
+          <Button onClick={() => setShowNotification(false)}>x</Button>
+        </div>
+      )}
     </>
   );
 };

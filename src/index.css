@@ -9,7 +9,6 @@
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  height: 100vh;
 }
 
 h1,
@@ -101,7 +100,7 @@ select {
 .btn {
   border: none;
   color: white;
-  padding: 5px 8px;
+  padding:  8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -157,6 +156,44 @@ select {
   display: flex;
   flex-direction: column;
   margin-top: 100px;
+  text-align: center;
 }
+
+.empty p{
+  font-size: 1.3rem;
+}
+
+.notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 15rem;
+}
+
+.notification p {
+  margin: 0;
+}
+
+.notification button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
 
 

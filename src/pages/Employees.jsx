@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import EmployeesContext from "../contexts/EmployeesContext";
 import { Link } from "react-router-dom";
 import { Button } from "../common";
@@ -9,6 +9,7 @@ const Employees = () => {
   const { employees } = useContext(EmployeesContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [employeesPerPage] = useState(5);
+  const [showNotification, setShowNotification] = useState(false);
 
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
@@ -23,8 +24,19 @@ const Employees = () => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       const employeeDoc = doc(db, "employees", id);
       await deleteDoc(employeeDoc);
+      setShowNotification(true);
     }
   };
+
+  useEffect(() => {
+    let notificationTimeout;
+    if (showNotification) {
+      notificationTimeout = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+    }
+    return () => clearTimeout(notificationTimeout);
+  }, [showNotification]);
 
   return (
     <>
@@ -69,6 +81,7 @@ const Employees = () => {
                     <td>{employee.phone}</td>
                     <td>{employee.dob}</td>
                     <td>${employee.salary}</td>
+
                     <td>
                       <Link to={`editemployee/${employee.id}`}>
                         <Button className="btn btn-edit">Edit</Button>
@@ -110,6 +123,12 @@ const Employees = () => {
                   ))}
             </ul>
           </div>
+        </div>
+      )}
+      {showNotification && (
+        <div className="notification">
+          <p>Deleted successfully!</p>
+          <Button onClick={() => setShowNotification(false)}>x</Button>
         </div>
       )}
     </>

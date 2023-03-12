@@ -42,3 +42,10 @@
   padding: 5px 8px;
   border-radius: 5px;
 }
+
+.status-progress{
+  background-color: gold;
+  color: black;
+  padding: 5px 8px;
+  border-radius: 5px;
+}

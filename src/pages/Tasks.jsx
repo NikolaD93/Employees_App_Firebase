@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import TasksContext from "../contexts/TasksContext";
+import EmployeesContext from "../contexts/EmployeesContext";
 import "./Tasks.css";
 import { Link } from "react-router-dom";
 import { db } from "../db/Firebase";
@@ -8,14 +9,17 @@ import { Button } from "../common";
 
 const Tasks = () => {
   const { tasks } = useContext(TasksContext);
+  const { employees } = useContext(EmployeesContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [tasksPerPage] = useState(5);
   const [statusFilter, setStatusFilter] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
 
   const filterOptions = [
     { label: "All", value: null },
     { label: "Completed", value: "completed" },
     { label: "Todo", value: "todo" },
+    { label: "In Progress", value: "inProgress" },
   ];
 
   const indexOfLastTask = currentPage * tasksPerPage;
@@ -30,8 +34,19 @@ const Tasks = () => {
     if (window.confirm("Are you sure you want to delete this task?")) {
       const taskDoc = doc(db, "tasks", id);
       await deleteDoc(taskDoc);
+      setShowNotification(true);
     }
   };
+
+  useEffect(() => {
+    let notificationTimeout;
+    if (showNotification) {
+      notificationTimeout = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+    }
+    return () => clearTimeout(notificationTimeout);
+  }, [showNotification]);
 
   return (
     <>
@@ -86,14 +101,22 @@ const Tasks = () => {
                     </th>
                     <td>{task.title}</td>
                     <td>{task.description}</td>
-                    <td>{task.assignee}</td>
+                    <td>
+                      {employees.map((employee) => {
+                        return task.assignee == employee.id
+                          ? employee.name
+                          : "";
+                      })}
+                    </td>
                     <td>{task.dueDate}</td>
                     <td>
                       <span
                         className={`${
                           task.status === "completed"
                             ? "status-completed"
-                            : "status-todo"
+                            : task.status === "todo"
+                            ? "status-todo"
+                            : "status-progress"
                         }`}
                       >
                         {task.status}
@@ -140,6 +163,12 @@ const Tasks = () => {
                   ))}
             </ul>
           </div>
+        </div>
+      )}
+      {showNotification && (
+        <div className="notification">
+          <p>Deleted successfully!</p>
+          <Button onClick={() => setShowNotification(false)}>x</Button>
         </div>
       )}
     </>

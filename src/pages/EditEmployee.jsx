@@ -16,7 +16,7 @@ const EditEmployee = () => {
   const [state, setState] = useState(initialState);
   const { employeesCollectionRef, employees, setEmployees } =
     useContext(EmployeesContext);
-
+  const [showNotification, setShowNotification] = useState(false);
   const { name, email, phone, dob, salary } = state;
 
   const navigate = useNavigate();
@@ -47,13 +47,14 @@ const EditEmployee = () => {
           (employee) => employee.id === params.id
         );
         updatedEmployees[index] = state;
+        setShowNotification(true);
         return updatedEmployees;
       });
     } catch (error) {
       console.error(error);
     }
 
-    setTimeout(() => navigate("/"), 500);
+    setTimeout(() => navigate("/"), 2000);
   };
 
   return (
@@ -109,7 +110,7 @@ const EditEmployee = () => {
             autoComplete="off"
             onChange={handleInputChange}
           />
-          <div style={{display:"flex"}}>
+          <div style={{ display: "flex" }}>
             <Button
               style={{ background: "dodgerblue" }}
               className="btn btn-save"
@@ -128,6 +129,12 @@ const EditEmployee = () => {
           </div>
         </form>
       </div>
+      {showNotification && (
+        <div className="notification">
+          <p>Edited successfully!</p>
+          <Button onClick={() => setShowNotification(false)}>x</Button>
+        </div>
+      )}
     </>
   );
 };
