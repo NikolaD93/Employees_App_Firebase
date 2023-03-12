@@ -1,18 +1,28 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import TasksContext from "../contexts/TasksContext";
+import "./Tasks.css";
 import { Link } from "react-router-dom";
 import { db } from "../db/Firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { Button } from "../common";
 
 const Tasks = () => {
-  const { tasks, setTasks } = useContext(TasksContext);
+  const { tasks } = useContext(TasksContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [tasksPerPage] = useState(5);
+  const [statusFilter, setStatusFilter] = useState(null);
+
+  const filterOptions = [
+    { label: "All", value: null },
+    { label: "Completed", value: "completed" },
+    { label: "Todo", value: "todo" },
+  ];
 
   const indexOfLastTask = currentPage * tasksPerPage;
   const indexOfFirstTask = indexOfLastTask - tasksPerPage;
-  const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
+  const currentTasks = tasks
+    .filter((task) => (statusFilter ? task.status === statusFilter : true))
+    .slice(indexOfFirstTask, indexOfLastTask);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -39,9 +49,22 @@ const Tasks = () => {
         </div>
       ) : (
         <div className="table-wrapper">
-          <Link className="btn btn-add" to={"/addtask"}>
-            Add New Task
-          </Link>
+          <div className="filter-wrapper">
+            <Link className="btn btn-add" to={"/addtask"}>
+              Add New Task
+            </Link>
+            <div className="filter-buttons">
+              {filterOptions.map((option) => (
+                <Button
+                  key={option.value}
+                  onClick={() => setStatusFilter(option.value)}
+                  className={statusFilter === option.value ? "active" : ""}
+                >
+                  {option.label}
+                </Button>
+              ))}
+            </div>
+          </div>
           <table className="styled-table">
             <thead>
               <tr>
@@ -65,7 +88,17 @@ const Tasks = () => {
                     <td>{task.description}</td>
                     <td>{task.assignee}</td>
                     <td>{task.dueDate}</td>
-                    <td>{task.status}</td>
+                    <td>
+                      <span
+                        className={`${
+                          task.status === "completed"
+                            ? "status-completed"
+                            : "status-todo"
+                        }`}
+                      >
+                        {task.status}
+                      </span>
+                    </td>
                     <td>
                       <Link to={`/${task.id}`}>
                         <Button className="btn btn-edit">Edit</Button>

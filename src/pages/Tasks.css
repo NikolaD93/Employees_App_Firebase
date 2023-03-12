@@ -1,0 +1,44 @@
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-buttons button {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  color: #333;
+  cursor: pointer;
+  padding: 8px;
+  transition: background-color 0.2s ease;
+  font-size: 16px;
+}
+
+.filter-buttons button:hover {
+  background-color: #eee;
+}
+
+.filter-buttons button.active {
+  background-color: #4284f5;
+  color: #fff;
+}
+
+.status-todo{
+  background-color: firebrick;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+.status-completed{
+  background-color: darkgreen;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 5px;
+}

@@ -1,6 +1,6 @@
 .header {
   overflow: hidden;
-  background-color:  #e8edf5;;
+  background-color:  #e8edf5;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,6 +29,3 @@
   color: #4284f5;
 }
 
-.header p:hover {
-  color: #5d6779;
-}

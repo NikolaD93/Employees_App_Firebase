@@ -10,13 +10,14 @@ const initialState = {
   phone: "",
   dob: "",
   salary: "",
+  tasks: []
 };
 
 const AddEmployee = () => {
   const [state, setState] = useState(initialState);
   const { employeesCollectionRef } = useContext(EmployeesContext);
 
-  const { name, email, phone, dob, salary } = state;
+  const { name, email, phone, dob, salary, tasks } = state;
 
   const navigate = useNavigate();
 

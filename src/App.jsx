@@ -1,9 +1,15 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Employees, AddEmployee, EditEmployee, Tasks, AddTask, EditTask } from "./pages";
-import Header from "./components/Header";
+import {
+  Employees,
+  AddEmployee,
+  EditEmployee,
+  Tasks,
+  AddTask,
+  EditTask,
+} from "./pages";
+import { Header, Footer } from "./components";
 import { EmployeesProvider, TasksProvider } from "./contexts";
-
 
 const App = () => {
   return (
@@ -18,6 +24,7 @@ const App = () => {
           <Route path="/addtask" element={<AddTask />} />
           <Route path="/:id" element={<EditTask />} />
         </Routes>
+        <Footer/>
       </TasksProvider>
     </EmployeesProvider>
   );

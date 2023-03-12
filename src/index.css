@@ -9,6 +9,7 @@
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
+  height: 100vh;
 }
 
 h1,
@@ -62,6 +63,7 @@ select {
   overflow-x: auto;
   max-width: 1000px;
   margin: auto;
+  height: 80vh;
 }
 
 .styled-table {
@@ -121,7 +123,7 @@ select {
 }
 
 .btn-add {
-  background: palevioletred;
+  background: #4284f5;
 }
 
 .btn-delete {
@@ -156,3 +158,5 @@ select {
   flex-direction: column;
   margin-top: 100px;
 }
+
+
