@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeesContext from "../contexts/EmployeesContext";
 import { updateDoc, doc } from "firebase/firestore";
+import { Button } from "../common";
 
 const initialState = {
   name: "",
@@ -109,21 +110,21 @@ const EditEmployee = () => {
             onChange={handleInputChange}
           />
           <div style={{display:"flex"}}>
-            <button
+            <Button
               style={{ background: "dodgerblue" }}
               className="btn btn-save"
               type="submit"
             >
               Save
-            </button>
+            </Button>
 
-            <button
+            <Button
               onClick={() => navigate("/")}
               style={{ background: "firebrick" }}
               className="btn btn-save"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         </form>
       </div>

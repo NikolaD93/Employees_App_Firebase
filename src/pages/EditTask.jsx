@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import TasksContext from "../contexts/TasksContext";
+import EmployeesContext from "../contexts/EmployeesContext";
 import { updateDoc, doc } from "firebase/firestore";
+import { Input, Button } from "../common";
 
 const initialState = {
   title: "",
@@ -14,6 +16,7 @@ const initialState = {
 const EditTask = () => {
   const [state, setState] = useState(initialState);
   const { tasksCollectionRef, tasks, setTasks } = useContext(TasksContext);
+  const { employees } = useContext(EmployeesContext);
 
   const { title, description, assignee, dueDate, status } = state;
 
@@ -57,71 +60,78 @@ const EditTask = () => {
       <h2>Edit task</h2>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="title">Title</label>
-          <input
+          <Input
+            label="Title"
             type="text"
-            id="title"
-            name="title"
-            placeholder="Enter title.."
             value={title}
-            autoComplete="off"
+            name="title"
+            id="title"
             onChange={handleInputChange}
-          />
-          <label htmlFor="description">Description</label>
-          <input
-            type="description"
-            id="description"
-            name="description"
-            placeholder="Enter description.."
-            value={description}
-            autoComplete="off"
-            onChange={handleInputChange}
-          />
-          <label htmlFor="assignee">Assignee</label>
-          <input
-            type="text"
-            id="assignee"
-            name="assignee"
+            placeholder="Enter title.."
             required
-            value={assignee}
-            autoComplete="off"
-            onChange={handleInputChange}
           />
-          <label htmlFor="dueDate">Due date</label>
-          <input
+          <Input
+            label="Description"
+            type="text"
+            value={description}
+            name="description"
+            id="description"
+            onChange={handleInputChange}
+            placeholder="Enter description.."
+            required
+          />
+          <select
+            name="assignee"
+            id="assignee"
+            onChange={handleInputChange}
+            required
+          >
+            <option selected={true} disabled>
+              Please select...
+            </option>
+            {employees.map((employee) => (
+              <option key={employee.id} value={employee.name}>
+                {employee.name}
+              </option>
+            ))}
+          </select>
+          <Input
+            label="Due Date"
             type="date"
-            id="dueDate"
-            name="dueDate"
             value={dueDate}
+            name="dueDate"
+            id="dueDate"
             onChange={handleInputChange}
+            required
           />
-          <label htmlFor="status">Status</label>
-          {/* <select
-            id="status"
+          <select
             name="status"
-            value={status}
+            id="status"
+            required
             onChange={handleInputChange}
-          /> */}
-          <select name="status" id="status" onChange={handleInputChange}>
-            <option value={status}>Completed</option>
-            {/* <option value={status}>Todo</option> */}
+          >
+            <option selected={true} disabled>
+              Please select...
+            </option>
+            <option value="todo">Todo</option>
+            <option value="completed">Completed</option>
           </select>
           <div style={{ display: "flex" }}>
-            <button
+            <Button
               style={{ background: "dodgerblue" }}
               className="btn btn-save"
               type="submit"
             >
               Save
-            </button>
+            </Button>
 
-            <button
+            <Button
               onClick={() => navigate("/tasks")}
               style={{ background: "firebrick" }}
               className="btn btn-save"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         </form>
       </div>

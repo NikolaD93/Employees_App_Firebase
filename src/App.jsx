@@ -2,8 +2,8 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Employees, AddEmployee, EditEmployee, Tasks, AddTask, EditTask } from "./pages";
 import Header from "./components/Header";
-import { EmployeesProvider } from "./contexts/EmployeesContext";
-import { TasksProvider } from "./contexts/TasksContext";
+import { EmployeesProvider, TasksProvider } from "./contexts";
+
 
 const App = () => {
   return (

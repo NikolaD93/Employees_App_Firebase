@@ -150,3 +150,9 @@ select {
   background-color: #4284f5;
   color: white;
 }
+
+.empty{
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+}
