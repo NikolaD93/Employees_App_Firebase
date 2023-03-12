@@ -5,7 +5,7 @@ import "./Tasks.css";
 import { Link } from "react-router-dom";
 import { db } from "../db/Firebase";
 import { deleteDoc, doc } from "firebase/firestore";
-import { Button } from "../common";
+import { Button } from "../components/shared";
 
 const Tasks = () => {
   const { tasks } = useContext(TasksContext);
@@ -47,6 +47,12 @@ const Tasks = () => {
     }
     return () => clearTimeout(notificationTimeout);
   }, [showNotification]);
+
+
+  const [visible, setVisible] = useState(true);
+  const removeElement = () => {
+    setVisible((prev) => !prev);
+  };
 
   return (
     <>
@@ -102,12 +108,11 @@ const Tasks = () => {
                     <td>{task.title}</td>
                     <td>{task.description}</td>
                     <td>
-                      {employees.map((employee) => {
-                        return task.assignee == employee.id
-                          ? employee.name
-                          : "";
-                      })}
+                      {employees.find(
+                        (employee) => employee.id === task.assignee
+                      )?.name ?? "DELETED"}
                     </td>
+
                     <td>{task.dueDate}</td>
                     <td>
                       <span
@@ -124,7 +129,7 @@ const Tasks = () => {
                     </td>
                     <td>
                       <Link to={`/${task.id}`}>
-                        <Button className="btn btn-edit">Edit</Button>
+                        <Button onClick={removeElement} className="btn btn-edit">Edit</Button>
                       </Link>
                       <Button
                         onClick={() => deleteTask(task.id)}

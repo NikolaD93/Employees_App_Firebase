@@ -21,6 +21,23 @@ h6 {
   color: #4284f5;
 }
 
+.title-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-wrapper .back-btn{
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+  text-decoration: none;
+  background-color: firebrick;
+  color: white;
+  border-radius: 5px;
+  padding: 8px;
+}
+
 .form-wrapper {
   margin: auto;
   padding: 15px;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeesContext from "../contexts/EmployeesContext";
 import { updateDoc, doc } from "firebase/firestore";
-import { Button } from "../common";
+import { Button } from "../components/shared";
 
 const initialState = {
   name: "",
@@ -29,7 +29,9 @@ const EditEmployee = () => {
   })[0];
 
   useEffect(() => {
-    setState(employee);
+    if (employee) {
+      setState(employee);
+    }
   }, [employee]);
 
   const handleInputChange = (e) => {
@@ -55,6 +57,11 @@ const EditEmployee = () => {
     }
 
     setTimeout(() => navigate("/"), 2000);
+  };
+
+  const [visible, setVisible] = useState(true);
+  const removeElement = () => {
+    setVisible((prev) => !prev);
   };
 
   return (
@@ -115,6 +122,7 @@ const EditEmployee = () => {
               style={{ background: "dodgerblue" }}
               className="btn btn-save"
               type="submit"
+              onClick={removeElement}
             >
               Save
             </Button>

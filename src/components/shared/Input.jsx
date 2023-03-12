@@ -1,5 +1,5 @@
 export const Input = ({
-  label,  
+  label,
   type,
   value,
   name,
@@ -21,5 +21,26 @@ export const Input = ({
         required={required}
       />
     </>
+  );
+};
+
+export const Select = ({
+  name,
+  id,
+  onChange,
+  required,
+  defaultValue,
+  children,
+}) => {
+  return (
+    <select
+      name={name}
+      id={id}
+      onChange={onChange}
+      required={required}
+      defaultValue={defaultValue}
+    >
+      {children}
+    </select>
   );
 };

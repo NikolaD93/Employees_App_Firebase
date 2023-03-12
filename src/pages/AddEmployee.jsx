@@ -1,15 +1,16 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import EmployeesContext from "../contexts/EmployeesContext";
 import { addDoc } from "firebase/firestore";
-import { Input, Button } from "../common";
+import { Button, Input } from "../components/shared";
+import { BsArrowLeftCircleFill } from "react-icons/bs";
 
 const initialState = {
   name: "",
   email: "",
   phone: "",
   dob: "",
-  salary: null,
+  salary: "",
 };
 
 const AddEmployee = () => {
@@ -38,9 +39,19 @@ const AddEmployee = () => {
     setTimeout(() => navigate("/"), 2000);
   };
 
+  const [visible, setVisible] = useState(true);
+  const removeElement = () => {
+    setVisible((prev) => !prev);
+  };
+
   return (
     <>
-      <h2>Add an employee</h2>
+      <div className="title-wrapper">
+        <Link to="/" className="back-btn">
+          <BsArrowLeftCircleFill />
+        </Link>
+        <h2>Add an employee</h2>
+      </div>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
           <Input
@@ -92,7 +103,12 @@ const AddEmployee = () => {
             placeholder="Enter salary.."
             required
           />
-          <Button style={{ width: "100%" }} className="btn-save" type="submit">
+          <Button
+            onClick={removeElement}
+            style={{ width: "100%" }}
+            className="btn-save"
+            type="submit"
+          >
             Save
           </Button>
         </form>

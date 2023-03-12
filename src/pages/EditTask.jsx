@@ -3,14 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import TasksContext from "../contexts/TasksContext";
 import EmployeesContext from "../contexts/EmployeesContext";
 import { updateDoc, doc } from "firebase/firestore";
-import { Input, Button } from "../common";
+import { Button, Input, Select } from "../components/shared";
 
 const initialState = {
   title: "",
   description: "",
-  assignee: "",
   dueDate: "",
-  status: "",
 };
 
 const EditTask = () => {
@@ -19,7 +17,7 @@ const EditTask = () => {
   const { employees } = useContext(EmployeesContext);
   const [showNotification, setShowNotification] = useState(false);
 
-  const { title, description, assignee, dueDate, status } = state;
+  const { title, description, dueDate } = state;
 
   const navigate = useNavigate();
   const params = useParams();
@@ -31,7 +29,9 @@ const EditTask = () => {
   })[0];
 
   useEffect(() => {
-    setState(task);
+    if (task) {
+      setState(task);
+    }
   }, [task]);
 
   const handleInputChange = (e) => {
@@ -55,6 +55,11 @@ const EditTask = () => {
     }
 
     setTimeout(() => navigate("/tasks"), 2000);
+  };
+
+  const [visible, setVisible] = useState(true);
+  const removeElement = () => {
+    setVisible((prev) => !prev);
   };
 
   return (
@@ -82,7 +87,7 @@ const EditTask = () => {
             placeholder="Enter description.."
             required
           />
-          <select
+          <Select
             name="assignee"
             id="assignee"
             onChange={handleInputChange}
@@ -97,7 +102,7 @@ const EditTask = () => {
                 {employee.name}
               </option>
             ))}
-          </select>
+          </Select>
           <Input
             label="Due Date"
             type="date"
@@ -107,7 +112,7 @@ const EditTask = () => {
             onChange={handleInputChange}
             required
           />
-          <select
+          <Select
             name="status"
             id="status"
             required
@@ -120,12 +125,13 @@ const EditTask = () => {
             <option value="todo">Todo</option>
             <option value="completed">Completed</option>
             <option value="inProgress">In Progress</option>
-          </select>
+          </Select>
           <div style={{ display: "flex" }}>
             <Button
               style={{ background: "dodgerblue" }}
               className="btn btn-save"
               type="submit"
+              onClick={removeElement}
             >
               Save
             </Button>
@@ -140,7 +146,7 @@ const EditTask = () => {
           </div>
         </form>
       </div>
-      {showNotification && ( 
+      {showNotification && (
         <div className="notification">
           <p>Edited successfully!</p>
           <Button onClick={() => setShowNotification(false)}>x</Button>

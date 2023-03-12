@@ -1,16 +1,15 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import TasksContext from "../contexts/TasksContext";
 import EmployeesContext from "../contexts/EmployeesContext";
 import { addDoc } from "firebase/firestore";
-import { Input, Button } from "../common";
+import { Button, Input, Select } from "../components/shared";
+import { BsArrowLeftCircleFill } from "react-icons/bs";
 
 const initialState = {
   title: "",
   description: "",
-  assignee: "",
   dueDate: "",
-  status: "",
 };
 
 const AddTask = () => {
@@ -18,7 +17,7 @@ const AddTask = () => {
   const { tasksCollectionRef } = useContext(TasksContext);
   const { employees } = useContext(EmployeesContext);
 
-  const { title, description, assignee, dueDate, status } = state;
+  const { title, description, dueDate } = state;
   const [showNotification, setShowNotification] = useState(false);
 
   const navigate = useNavigate();
@@ -40,9 +39,19 @@ const AddTask = () => {
     setTimeout(() => navigate("/tasks"), 2000);
   };
 
+  const [visible, setVisible] = useState(true);
+  const removeElement = () => {
+    setVisible((prev) => !prev);
+  };
+
   return (
     <>
-      <h2>Add a task</h2>
+      <div className="title-wrapper">
+        <Link to="/tasks" className="back-btn">
+          <BsArrowLeftCircleFill />
+        </Link>
+        <h2>Add a task</h2>
+      </div>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
           <Input
@@ -65,7 +74,7 @@ const AddTask = () => {
             placeholder="Enter description.."
             required
           />
-          <select
+          <Select
             name="assignee"
             id="assignee"
             onChange={handleInputChange}
@@ -80,7 +89,7 @@ const AddTask = () => {
                 {employee.name}
               </option>
             ))}
-          </select>
+          </Select>
           <Input
             label="Due Date"
             type="date"
@@ -90,7 +99,7 @@ const AddTask = () => {
             onChange={handleInputChange}
             required
           />
-          <select
+          <Select
             name="status"
             id="status"
             required
@@ -103,13 +112,18 @@ const AddTask = () => {
             <option value="todo">Todo</option>
             <option value="completed">Completed</option>
             <option value="inProgress">In Progress</option>
-          </select>
-          <Button style={{ width: "100%" }} className="btn-save" type="submit">
+          </Select>
+          <Button
+            onClick={removeElement}
+            style={{ width: "100%" }}
+            className="btn-save"
+            type="submit"
+          >
             Save
           </Button>
         </form>
       </div>
-      {showNotification && ( 
+      {showNotification && (
         <div className="notification">
           <p>New task added!</p>
           <Button onClick={() => setShowNotification(false)}>x</Button>

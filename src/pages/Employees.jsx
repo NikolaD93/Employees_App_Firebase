@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import EmployeesContext from "../contexts/EmployeesContext";
 import { Link } from "react-router-dom";
-import { Button } from "../common";
+import { Button } from "../components/shared";
 import { db } from "../db/Firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 
@@ -37,6 +37,11 @@ const Employees = () => {
     }
     return () => clearTimeout(notificationTimeout);
   }, [showNotification]);
+
+  const [visible, setVisible] = useState(true);
+  const removeElement = () => {
+    setVisible((prev) => !prev);
+  };
 
   return (
     <>
@@ -84,7 +89,12 @@ const Employees = () => {
 
                     <td>
                       <Link to={`editemployee/${employee.id}`}>
-                        <Button className="btn btn-edit">Edit</Button>
+                        <Button
+                          onClick={removeElement}
+                          className="btn btn-edit"
+                        >
+                          Edit
+                        </Button>
                       </Link>
                       <Button
                         onClick={() => deleteEmployee(employee.id)}
