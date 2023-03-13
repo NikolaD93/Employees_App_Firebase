@@ -1,5 +1,5 @@
 # CRUD_App 
-This is my new portfolio website. 
+The app has two main entities - Employees and Tasks. The user can Create, Read, Delete & Update both employees and tasks.  
 
 Technologies used:
 
