@@ -1,6 +1,6 @@
 # CRUD_App 
 
-## Setup Guide - Steps to Start the Application
+## 1. Setup Guide - Steps to Start the Application
 
 - Clone the project repository from the remote repository where it is stored.
 
@@ -10,18 +10,24 @@
 
 - Open your web browser and go to http://localhost:5173 to see the application running.
 
-## Folder Structure Overview
+## 2. Folder Structure Overview
 
 The architecture of the project is divided into several folders: 
 
- - 1.src: This folder contains all the source code files for the application.
+- src: This folder contains all the source code files for the application.
 
-src/components: This folder contains all the React components used in the project. Each component is divided into its own sub-folder, which contains its JSX, styling, and other related files.
+- src/components: This folder contains Header and Footer components. Each component contains its JSX, styling, and other related files.
 
-src/pages: This folder contains all the pages that the user can navigate to. Each page is represented by a React component and has its own sub-folder that contains its JSX, styling, and other related files.
+- src/components/shared : This folder contains components that are commonly used - Button and Input.
 
-src/firebase: This folder contains all the Firebase-related code. It includes a firebase.js file, which initializes the Firebase app and sets up the connection to the Firestore database. Additionally, it includes a firebaseUtils.js file, which contains all the Firebase functions used in the application.
+- src/context: This folder has two components - EmployeesContext and TasksContext. This is where the state is managed and shared to other components. 
 
-src/utils: This folder contains utility functions that are used throughout the application.
+- src/db: This folder contains all the Firebase-related code. It includes a firebase.js file, which initializes the Firebase app and sets up the connection to the Firestore database.
+
+- src/pages: This folder contains all the pages that the user can navigate to - Employees, Tasks and TopEmployees.
+
+- src/.env: This file contains environment variables that are used throughout the application to access the associated API and perform various tasks, such as reading or writing data to a database or storage system.
+
+## 3. Additional Functionalities
 
 # [Live Website Preview](https://crud-app-58c6e.firebaseapp.com/)
