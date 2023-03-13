@@ -1,5 +1,11 @@
 # CRUD_App 
 
+## Technologies used:
+
+- `React.js` & `Css` for frontend.
+- `Firebase` as backend.
+- `Vite.js` as module bundler.
+
 ## 1. Setup Guide - Steps to Start the Application
 
 - Clone the project repository from the remote repository where it is stored.
