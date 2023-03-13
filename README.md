@@ -30,4 +30,9 @@ The architecture of the project is divided into several folders:
 
 ## 3. Additional Functionalities
 
+### 1) Paggination 
+
+The pagination functionality allows the user to view the tasks in the table one page at a time. By default, the table shows ten tasks per page. However, the user can change this setting to show a different number of tasks per page.
+
+
 # [Live Website Preview](https://crud-app-58c6e.firebaseapp.com/)
