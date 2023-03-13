@@ -6,7 +6,7 @@
 
 - Install all the required dependencies using the `npm install` command.
 
-- Run the ### `npm run dev` command to start the development server.
+- Run the `npm run dev` command to start the development server.
 
 - Open your web browser and go to http://localhost:5173 to see the application running.
 
