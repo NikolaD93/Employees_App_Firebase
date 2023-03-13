@@ -32,7 +32,14 @@ The architecture of the project is divided into several folders:
 
 ### 1) Paggination 
 
-The pagination functionality allows the user to view the tasks in the table one page at a time. By default, the table shows ten tasks per page. However, the user can change this setting to show a different number of tasks per page.
+The pagination functionality allows the user to view the tasks and employees in the table one page at a time. Tables show 5 tasks and employees per page.
 
+### 2) Filter Options:
+
+The filter options functionality allows the user to filter the tasks in the table by their status. The user can select one of four options: All, Todo, Completed or In progress. The table then shows only the tasks that match the selected filter option.
+
+### Why I chose these additional functionalities 
+
+I chose these extensions to the application because they enhance the user experience by making it easier to navigate and manage the tasks. The pagination functionality helps users quickly navigate through large amounts of data, while the filter options functionality allows them to find specific tasks more easily. Additionally, I chose Vite.js as the module bundler for its faster development server and build process.
 
 # [Live Website Preview](https://crud-app-58c6e.firebaseapp.com/)
