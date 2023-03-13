@@ -4,7 +4,7 @@
 
 - Clone the project repository from the remote repository where it is stored.
 
-- Install all the required dependencies using the ### `npm install` command.
+- Install all the required dependencies using the `npm install` command.
 
 - Run the ### `npm run dev` command to start the development server.
 
