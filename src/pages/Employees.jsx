@@ -85,7 +85,7 @@ const Employees = () => {
                     <td>{employee.email}</td>
                     <td>{employee.phone}</td>
                     <td>{employee.dob}</td>
-                    <td>${employee.salary}</td>
+                    <td>$ {Number(employee.salary).toFixed(2)}</td>
 
                     <td>
                       <Link to={`editemployee/${employee.id}`}>
