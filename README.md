@@ -1,4 +1,3 @@
-# CRUD_App 
 
 ## Technologies used:
 
@@ -53,3 +52,4 @@ I chose these extensions to the application because they enhance the user experi
 ## Finally I hosted application on Firebase hosting service 👇
 
 # [Live Website Preview](https://crud-app-58c6e.firebaseapp.com/)
+# [YT Video Preview](https://www.youtube.com/watch?v=6-DWxmphtX8)
