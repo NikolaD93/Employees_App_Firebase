@@ -21,19 +21,19 @@
 
 The architecture of the project is divided into several folders: 
 
-- src: This folder contains all the source code files for the application.
+- `src`: This folder contains all the source code files for the application.
 
-- src/components: This folder contains Header and Footer components. Each component contains its JSX, styling, and other related files.
+- `src/components`: This folder contains Header and Footer components. Each component contains its JSX, styling, and other related files.
 
-- src/components/shared : This folder contains components that are commonly used - Button and Input.
+- `src/components/shared`: This folder contains components that are commonly used - Button and Input.
 
-- src/context: This folder has two components - EmployeesContext and TasksContext. This is where the state is managed and shared to other components. 
+- `src/context`: This folder has two components - EmployeesContext and TasksContext. This is where the state is managed and shared to other components. 
 
-- src/db: This folder contains all the Firebase-related code. It includes a firebase.js file, which initializes the Firebase app and sets up the connection to the Firestore database.
+- `src/db`: This folder contains all the Firebase-related code. It includes a firebase.js file, which initializes the Firebase app and sets up the connection to the Firestore database.
 
-- src/pages: This folder contains all the pages that the user can navigate to - Employees, Tasks and TopEmployees.
+- `src/pages`: This folder contains all the pages that the user can navigate to - Employees, Tasks and TopEmployees.
 
-- src/.env: This file contains environment variables that are used throughout the application to access the associated API and perform various tasks, such as reading or writing data to a database or storage system.
+- `src/.env`: This file contains environment variables that are used throughout the application to access the associated API and perform various tasks, such as reading or writing data to a database or storage system.
 
 ## 3. Additional Functionalities
 
