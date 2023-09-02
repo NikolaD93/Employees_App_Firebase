@@ -49,7 +49,5 @@ The filter options functionality allows the user to filter the tasks in the tabl
 
 I chose these extensions to the application because they enhance the user experience by making it easier to navigate and manage the tasks. The pagination functionality helps users quickly navigate through large amounts of data, while the filter options functionality allows them to find specific tasks more easily. Additionally, I chose Vite.js as the module bundler for its faster development server and build process.
 
-## Finally I hosted application on Firebase hosting service 👇
-
 # [Live Website Preview](https://crud-app-58c6e.firebaseapp.com/)
 # [YT Video Preview](https://www.youtube.com/watch?v=6-DWxmphtX8)
